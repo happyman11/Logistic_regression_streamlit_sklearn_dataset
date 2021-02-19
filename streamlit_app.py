@@ -86,7 +86,26 @@ def train_test_splited(data,split):
 #model for Logic regression    
 def model_logicregression_train(parameters):
     
-    X_train, X_test, y_train, y_test= train_test_splited(Data,Split)   
+    X_train, X_test, y_train, y_test= train_test_splited(Data,Split) 
+     clf = LogisticRegression(penalty=parameters['Penality'],max_iter=int(parameters['Max_Iteration']),tol=float(parameters['Tol']))
+    clf=clf.fit(X_train,y_train)
+    prediction=clf.predict(X_test)
+    
+    
+   #model calculate metric
+    accuracy=sklearn.metrics.accuracy_score(y_test,prediction)
+    cm = confusion_matrix(y_test, prediction)
+
+    
+    dict_value={"model":clf,
+                "accuracy": accuracy,
+                 "prediction":prediction,
+                 "Y_actual": y_test,
+                 "Confusion Metric":cm,
+                  "X_test": X_test }
+       
+    
+    return(dict_value)
 
     
        
@@ -116,8 +135,8 @@ if(st.sidebar.button("Click to train the Logistic Regression Model")):
         time.sleep(1)
     st.success("Dataset Loaded")
     
-    X_train, X_test, y_train, y_test=model_logicregression_train(parameters) 
-    
+    model=model_logicregression_train(parameters) 
+    #model Information
     
 
     
