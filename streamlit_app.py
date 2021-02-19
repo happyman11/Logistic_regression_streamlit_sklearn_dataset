@@ -42,7 +42,7 @@ st.sidebar.markdown("""**Select Dataset**""")
 Dataset = st.sidebar.selectbox('Dataset',('Iris','Wine',
                                           'Breast Concer'))
 
-Split = st.sidebar.slider('Train-Test Splitup (in %)', 0.1,1,.70)
+Split = st.sidebar.slider('Train-Test Splitup (in %)', 0.1,0.9,.70)
 st.sidebar.markdown("""**Select Logistic Regression Parameters**""")
 
 Solver= st.sidebar.selectbox('Algorithm to optimise',('lbfgs','newton-cg', 'liblinear', 'sag', 'saga'))
