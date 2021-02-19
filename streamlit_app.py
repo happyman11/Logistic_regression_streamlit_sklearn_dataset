@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import sklearn.metrics
 from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
+
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import time
 
