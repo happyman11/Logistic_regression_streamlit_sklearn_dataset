@@ -42,7 +42,7 @@ st.sidebar.markdown("""**Select Dataset**""")
 Dataset = st.sidebar.selectbox('Dataset',('Iris','Wine',
                                           'Breast Concer'))
 
-Split = st.sidebar.slider('Train-Test Splitup (in %)', 0,100,70)
+Split = st.sidebar.slider('Train-Test Splitup (in %)', 0.1,1,.70)
 st.sidebar.markdown("""**Select Logistic Regression Parameters**""")
 
 Solver= st.sidebar.selectbox('Algorithm to optimise',('lbfgs','newton-cg', 'liblinear', 'sag', 'saga'))
@@ -78,7 +78,7 @@ def load_dataset(dataset):
 
 #test-train split
 def train_test_splited(data,split):
-    X_train, X_test, y_train, y_test = train_test_split(data.data,data.target, test_size=int(split),
+    X_train, X_test, y_train, y_test = train_test_split(data.data,data.target, test_size=float(split),
     random_state=42)
 
     return ( X_train, X_test, y_train, y_test)
@@ -88,25 +88,10 @@ def model_logicregression_train(parameters):
     
     X_train, X_test, y_train, y_test= train_test_splited(Data,Split)   
 
-    clf = LogisticRegression(penalty=parameters['Penality'],max_iter=int(parameters['Max_Iteration']),tol=float(parameters['Tol']))
-    clf=clf.fit(X_train,y_train)
-    prediction=clf.predict(X_test)
     
-    
-   #model calculate metric
-    accuracy=sklearn.metrics.accuracy_score(y_test,prediction)
-    cm = confusion_matrix(y_test, prediction)
-
-    
-    dict_value={"model":clf,
-                "accuracy": accuracy,
-                 "prediction":prediction,
-                 "Y_actual": y_test,
-                 "Confusion Metric":cm,
-                  "X_test": X_test }
        
     
-    return(dict_value)
+    return(X_train, X_test, y_train, y_test)
 #%%
 
 #Body
@@ -131,16 +116,9 @@ if(st.sidebar.button("Click to train the Logistic Regression Model")):
         time.sleep(1)
     st.success("Dataset Loaded")
     
-    model=model_logicregression_train(parameters) 
+    X_train, X_test, y_train, y_test=model_logicregression_train(parameters) 
     
-    my_bar = st.progress(0)
-    for percent_complete in range(100):
-        time.sleep(0.1)
-        my_bar.progress(percent_complete + 1)
-
-    with st.spinner('Trainning...'):
-        time.sleep(1)
-    st.success("Model Trained") 
+    
 
     
 
