@@ -8,7 +8,7 @@ Created on Thu Feb 18 20:19:11 2021
 #%%
 ###import packages
 
-
+from sklearn.preprocessing import MinMaxScaler
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -78,7 +78,11 @@ def load_dataset(dataset):
 
 #test-train split
 def train_test_splited(data,split):
-    X_train, X_test, y_train, y_test = train_test_split(data.data,data.target, test_size=float(split),
+  
+    scaler = MinMaxScaler()
+    X_data=scaler.fit(data.data)
+    X_data=scaler.transform(data.data)
+    X_train, X_test, y_train, y_test = train_test_split(X_data,data.target, test_size=float(split),
     random_state=42)
 
     return ( X_train, X_test, y_train, y_test)
