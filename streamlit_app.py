@@ -138,6 +138,31 @@ if(st.sidebar.button("Click to train the Logistic Regression Model")):
     model=model_logicregression_train(parameters) 
     #model Information
     
+    my_bar = st.progress(0)
+    for percent_complete in range(100):
+        time.sleep(0.1)
+        my_bar.progress(percent_complete + 1)
+
+    with st.spinner('Trainning...'):
+        time.sleep(1)
+    st.success("Model Trained") 
+
+    labels=[targets[i] for i in model["Y_actual"]]
+    predicted_labels= [targets[i] for i in model["prediction"]]
+    st.subheader("Prediction By Model on Test Data")
+    st.write(pd.DataFrame({
+            "Actual Value" : model["Y_actual"],
+            "Actual LAbels" : labels,
+            "Predicted Value" : model["prediction"],
+            "Predicted LAbels" :  predicted_labels,
+            }))
+    
+    a=model["Confusion Metric"]
+    st.subheader("Confusion Metric ofTest Data")
+    st.write(a)
+    st.write("Accuracy:",model["accuracy"])
+
+    
 
     
 
