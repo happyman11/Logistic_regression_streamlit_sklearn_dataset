@@ -78,7 +78,7 @@ def load_dataset(dataset):
 
 #test-train split
 def train_test_splited(data,split):
-    X_train, X_test, y_train, y_test = train_test_split(data.data,data.target, test_size=split,
+    X_train, X_test, y_train, y_test = train_test_split(data.data,data.target, test_size=int(split),
     random_state=42)
 
     return ( X_train, X_test, y_train, y_test)
