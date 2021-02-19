@@ -84,31 +84,6 @@ def train_test_splited(data,split):
     return ( X_train, X_test, y_train, y_test)
 
 #model for Logic regression    
-def model_logicregression_train(parameters):
-    
-    X_train, X_test, y_train, y_test= train_test_splited(Data,Split)   
-
-    clf = LogisticRegression(penalty=parameters['Penality'],max_iter=int(parameters['Max_Iteration']),tol=float(parameters['Tol']))
-    clf=clf.fit(X_train,y_train)
-    prediction=clf.predict(X_test)
-    
-    
-   #model calculate metric
-    accuracy=sklearn.metrics.accuracy_score(y_test,prediction)
-    cm = confusion_matrix(y_test, prediction)
-
-    
-    dict_value={"model":clf,
-                "accuracy": accuracy,
-                 "prediction":prediction,
-                 "Y_actual": y_test,
-                 "Confusion Metric":cm,
-                  "X_test": X_test }
-       
-    
-    return(dict_value)
-  
-#metric calculation
 
 #%%
 
@@ -128,7 +103,7 @@ st.write(Dataframe)
 
 #train Model navbar button
 if(st.sidebar.button("Click to train the Logistic Regression Model")):
-    model=model_logicregression_train(parameters) 
+    
     #model Information
     with st.spinner('Loading Dataset...'):
         time.sleep(1)
@@ -144,20 +119,7 @@ if(st.sidebar.button("Click to train the Logistic Regression Model")):
         time.sleep(1)
     st.success("Model Trained") 
 
-    labels=[targets[i] for i in model["Y_actual"]]
-    predicted_labels= [targets[i] for i in model["prediction"]]
-    st.subheader("Prediction By Model on Test Data")
-    st.write(pd.DataFrame({
-            "Actual Value" : model["Y_actual"],
-            "Actual LAbels" : labels,
-            "Predicted Value" : model["prediction"],
-            "Predicted LAbels" :  predicted_labels,
-            }))
     
-    a=model["Confusion Metric"]
-    st.subheader("Confusion Metric ofTest Data")
-    st.write(a)
-    st.write("Accuracy:",model["accuracy"])
 
     
 
