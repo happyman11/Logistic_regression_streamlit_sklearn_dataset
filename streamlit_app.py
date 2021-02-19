@@ -91,7 +91,7 @@ def train_test_splited(data,split):
 def model_logicregression_train(parameters):
     
     X_train, X_test, y_train, y_test= train_test_splited(Data,Split) 
-    clf = LogisticRegression()
+    clf = LogisticRegression(penalty=parameters['Penality'],solver=parameters['Solver'],max_iter=int(parameters['Max_Iteration']),tol=float(parameters['Tol']))
     clf=clf.fit(X_train,y_train)
     prediction=clf.predict(X_test)
     
