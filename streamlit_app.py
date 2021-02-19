@@ -29,7 +29,7 @@ import time
 
 
 #%%
-
+st.write("*Profile :* https://www.rstiwari.com", "*Blog :* https://tiwari11-rst.medium.com/")
 # Text/Title
 st.title("Logistic Regression")
 
